@@ -89,13 +89,20 @@ class EllipticPointPrime(object):
             # segun nuestra definición __init__
             return EllipticPointPrime(None, None)
         if P1 != P2:
-            lambda_ = ((P2.y - P1.y) * inverse_mod_p(P2.x - P1.x)) % p
+            lambda_ = ((P2.y - P1.y) * inverse_mod_p(P2.x - P1.x, p)) % p
         elif P1 == P2:
-            lambda_ = ((3 * (P1.x) ** 2 + A) * inverse_mod_p(2 * P1.y)) % p
+            lambda_ = ((3 * (P1.x) ** 2 + A) * inverse_mod_p(2 * P1.y, p)) % p
         x3 = (lambda_ ** 2 - P1.x - P2.x) % p
         y3 = (lambda_ * (P1.x - x3) - P1.y) % p
         new_point = EllipticPointPrime(x3, y3)
         return new_point
+
+    def mult_by_n(self, number):
+        new_point = EllipticPointPrime(self.x, self.y)
+        for _ in range(number-1):
+            new_point = new_point + new_point
+        return new_point
+
 
 
 if __name__ == "__main__":
@@ -105,5 +112,9 @@ if __name__ == "__main__":
     ec = EllipticCurvePrime(A, B, p)
     ec.find_all_points()
     print(ec.points)
-    has = ec.has_point(EllipticPointPrime(43, 165))
+    P=EllipticPointPrime(43, 165)
+    has = ec.has_point(P)
     print(has)
+
+    Q = P.mult_by_n(10)
+    print(Q)
