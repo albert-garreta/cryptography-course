@@ -20,7 +20,7 @@ class EllipticPointR(object):
         # escribimos print([un Point])
         return f"({self.x}, {self.y})"
 
-    def __equal__(self, other):
+    def __eq__(self, other):
         # Aquí damos un criterio para que dos instancias de esta
         # clase (self y other) sean iguales.
         if self.x == other.x and self.y == other.y:
