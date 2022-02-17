@@ -140,15 +140,18 @@ def mult_point_by_num(point, number):
 
 
 def log(base, point):
-    # Buscamos  el ogaritmo del punto en base `base_point`
+    # Buscamos  el logaritmo del punto en base `base_point`
     # por fuerza bruta
-    temp_point = EllipticPointPrime(base.x, base.y)
-    for num in range(1, p):
-        if temp_point == point:
-            print(f"The log of {point} in base {base} is {num}\n")
-            return num
-        temp_point = temp_point + base
-    print("Log not found\n")
+    try:
+        temp_point = EllipticPointPrime(base.x, base.y)
+        for num in range(1, p):
+            if temp_point == point:
+                print(f"The log of {point} in base {base} is {num}\n")
+                return num
+            temp_point = temp_point + base
+        print("Log not found\n")
+    except:
+        print("Log not found\n"
 
 
 if __name__ == "__main__":
@@ -182,7 +185,7 @@ if __name__ == "__main__":
     # Comprobando que `mult_point_by_num` funciona ok
     assert P+P+P+P+P==mult_point_by_num(P,5)
     
-    # Calculamos el log the P en base Q
+    # Calculamos el log de P en base Q
     log_num = log(Q, P)
     
     # Comprobando que la función `log` funciona ok
