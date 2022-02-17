@@ -26,8 +26,14 @@ class EllipticCurvePrime(object):
             point2 = EllipticPointPrime(x_coord, -y_coord % p)
             self.points.add(point1)
             self.points.add(point2)
-            
-            
+        # Procesamos aparte el caso en que la 2a coordenada es 0
+        self._process_0_y_coord(x_coord)
+     
+    def _process_0_y_coord(self, x_coord):
+        candidate_point = EllipticPointPrime(x_coord, 0)
+        if self.has_point(candidate_point):
+            self.points.add(candidate_point)
+        
     def _right_side_fun(self, x):
         return (x ** 3 + self.A * x + B) % p
 
